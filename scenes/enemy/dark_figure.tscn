@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dk3qk0e33657w"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xxr03"]
+radius = 0.7
+height = 3.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dsebt"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[node name="DarkFigure" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_xxr03")
+surface_material_override/0 = SubResource("StandardMaterial3D_dsebt")

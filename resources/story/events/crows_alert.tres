@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="StoryEventCollection" load_steps=8 format=3 uid="uid://ktpnemj0jvex"]
+
+[ext_resource type="Script" uid="uid://cygdlu46hgyf3" path="res://scripts/story_engine/story_event.gd" id="1_keosw"]
+[ext_resource type="Script" uid="uid://bg068q2t2t1j8" path="res://scripts/story_engine/story_events/sound_at_point.gd" id="2_0wsla"]
+[ext_resource type="AudioStream" uid="uid://crm81jc3ntg6p" path="res://assets/sounds/twig_snap.wav" id="3_avm2y"]
+[ext_resource type="AudioStream" uid="uid://bdluyi546fq8e" path="res://assets/sounds/monster/ravens.wav" id="4_mwvo5"]
+[ext_resource type="Script" uid="uid://bufodrmdoa7j1" path="res://scripts/story_engine/story_events/story_event_collection.gd" id="5_juv52"]
+
+[sub_resource type="Resource" id="Resource_b8gri"]
+script = ExtResource("2_0wsla")
+sound = ExtResource("3_avm2y")
+point = NodePath("../EventAreas/TwigCrack")
+name = "Twig Snap"
+delay = 0.0
+metadata/_custom_type_script = "uid://bg068q2t2t1j8"
+
+[sub_resource type="Resource" id="Resource_uaujd"]
+script = ExtResource("2_0wsla")
+sound = ExtResource("4_mwvo5")
+point = NodePath("../EventAreas/TwigCrack/DistanceCrowsPoint")
+name = "Distance Ravens"
+delay = 0.3
+metadata/_custom_type_script = "uid://bg068q2t2t1j8"
+
+[resource]
+script = ExtResource("5_juv52")
+events = Array[ExtResource("1_keosw")]([SubResource("Resource_b8gri"), SubResource("Resource_uaujd")])
+name = ""
+delay = 0.0
+metadata/_custom_type_script = "uid://bufodrmdoa7j1"

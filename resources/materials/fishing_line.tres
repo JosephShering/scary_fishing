@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dk3tplnmbnlco"]
+
+[ext_resource type="Shader" uid="uid://cq1e08itpotpa" path="res://resources/shaders/fishing_line.gdshader" id="1_ra8wc"]
+
+[resource]
+shader = ExtResource("1_ra8wc")
+shader_parameter/width = 8.0
+shader_parameter/height = 16.0

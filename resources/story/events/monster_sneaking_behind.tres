@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="SoundBehindPlayer" load_steps=3 format=3 uid="uid://r7l11cnynq1v"]
+
+[ext_resource type="Script" uid="uid://0g01b80nhg0l" path="res://scripts/story_engine/story_events/sound_behind_player.gd" id="1_wj5an"]
+[ext_resource type="AudioStream" uid="uid://csgqg32tpfkpk" path="res://assets/sounds/monster/monster_sneaking_behind.wav" id="2_q51gb"]
+
+[resource]
+script = ExtResource("1_wj5an")
+sound = ExtResource("2_q51gb")
+distance = 15.0
+name = "Monster Sneaking"
+delay = 0.0
+metadata/_custom_type_script = "uid://0g01b80nhg0l"
