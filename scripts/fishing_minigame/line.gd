@@ -10,8 +10,11 @@ signal fish_hooked(body: Node)
 @export var width = 4
 @export var height = 8
 @export var sprite : Texture2D
-
 @export var root_path : NodePath
+@export var hook : Hook
+
+
+@export_file var hook_scene: String
 
 var overlap = 0.2
 
@@ -21,9 +24,12 @@ const FILL = preload("res://resources/shaders/fill.gdshader")
 
 var relative : Vector2
 
+
 func _ready() -> void:
     if not Engine.is_editor_hint():
         Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+        
+        hook.fish_hooked.connect(_on_fish_hooked)
 
 func _unhandled_input(event: InputEvent) -> void:
     if event is InputEventMouseMotion:
@@ -33,7 +39,7 @@ func _physics_process(delta: float) -> void:
     if not Engine.is_editor_hint():
         var root : RigidBody2D = get_node_or_null(root_path)
         
-        root.linear_velocity = relative * 5.0
+        root.linear_velocity = relative * 10.0
         
         relative = Vector2.ZERO
     
@@ -80,6 +86,9 @@ func _generate_line() -> void:
         if is_last_iteration:
             var hook := HOOK.instantiate()
             hook.body_entered.connect(_body_entered)
+            
+            
+    _create_hook(last_body)
 
 func _create_rigid_body(idx: int) -> RigidBody2D:
     var rd := RigidBody2D.new()
@@ -139,6 +148,18 @@ func _create_joint(idx: int, last_body: Node, rd: RigidBody2D) -> PinJoint2D:
     
     return joint
 
+func _create_hook(final_rigid_body: Node) -> void:
+    hook = load(hook_scene).instantiate()
+    hook.name = "Hook"
+    
+    add_child(hook)
+    hook.owner = get_tree().edited_scene_root
+    
+    var final_height : float = height * length
+    hook.position = Vector2(0.0, final_height)
+    
+    _create_joint(length, final_rigid_body, hook)
+    
 func _body_entered(body: Node) -> void:
     fish_hooked.emit(body)
 
@@ -155,3 +176,19 @@ func _make_image(size: Vector2) -> ImageTexture:
             i.set_pixel(x, y, Color.WHITE)
     
     return ImageTexture.create_from_image(i)
+
+func _on_fish_hooked(fish: Node) -> void:
+    var joint := PinJoint2D.new()
+    
+    add_child(joint)
+    joint.global_position = hook.global_position
+    
+    joint.node_a = joint.get_path_to(hook)
+    joint.node_b = joint.get_path_to(fish)
+    
+    hook.lock_rotation = true
+    hook.fish_hooked.disconnect(_on_fish_hooked)
+    
+    await get_tree().create_timer(1.5).timeout
+    fish_hooked.emit()
+    

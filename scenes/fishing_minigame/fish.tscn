@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://b08ccxj8chrm4"]
+
+[ext_resource type="Script" uid="uid://dao7sogxemix3" path="res://scripts/fishing_minigame/fish.gd" id="1_i7nca"]
+[ext_resource type="Texture2D" uid="uid://e3hoih7733t4" path="res://assets/sprites/fish.png" id="2_gmusj"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oowyj"]
+radius = 17.0
+height = 74.0
+
+[node name="Fish" type="AnimatableBody2D" node_paths=PackedStringArray("sprite")]
+collision_layer = 256
+collision_mask = 0
+script = ExtResource("1_i7nca")
+sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("2_gmusj")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(0, 0, 31, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_oowyj")
